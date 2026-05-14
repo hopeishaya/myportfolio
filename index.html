@@ -4,14 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Hope Ishaya – Frontend Engineer</title>
-  <meta name="description" content="Frontend Engineering student at AltSchool Africa. Building clean, responsive, and accessible web interfaces with HTML, CSS, Bootstrap, and JavaScript."/>
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+/>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"/>
 
   <style>
     /* ─── TOKENS ─── */
     :root {
-      --navy: #0f1923;
+       --navy: #0f1923;
       --blue: #6b23f0;
       --cream: #f5f0e8;
       --white: #ffffff;
@@ -562,9 +565,467 @@
       .socials { gap: .6rem; }
       .social-btn { padding: .65rem .9rem; font-size: .78rem; }
     }
+
+    /* ─── DOWNLOAD CV BUTTON (reusable) ─── */
+    .btn-cv {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .85rem 1.9rem;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700; font-size: .88rem;
+      letter-spacing: .04em; text-transform: uppercase;
+      text-decoration: none; border-radius: 4px; cursor: pointer;
+      border: 2px solid rgba(245,240,232,.22);
+      color: var(--cream); background: transparent;
+      transition: transform .2s, border-color .2s, color .2s, box-shadow .2s;
+    }
+    .btn-cv:hover {
+      border-color: var(--orange); color: var(--orange);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(240,78,35,.2);
+    }
+
+    /* ─── WHAT I DO SECTION ─── */
+    #what-i-do {
+      background: rgba(25,37,53,.5);
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+    }
+    /* Reuse section-tag + section-title above; unique grid below */
+    .what-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.2rem;
+    }
+    .what-card {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 14px;
+      padding: 1.6rem 1.4rem;
+      display: flex; flex-direction: column; gap: .8rem;
+      transition: border-color .25s, transform .25s;
+    }
+    .what-card:hover { border-color: rgba(240,78,35,.4); transform: translateY(-4px); }
+    .what-card-icon {
+      width: 44px; height: 44px;
+      background: rgba(240,78,35,.12);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; color: var(--orange);
+    }
+    .what-card h4 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700; font-size: .95rem;
+      color: var(--cream);
+    }
+    .what-card p { font-size: .82rem; color: var(--mid); line-height: 1.6; }
+
+    /* ─── CURRENTLY LEARNING SECTION ─── */
+    #learning {
+      background: var(--navy);
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+    }
+    .learning-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.2rem;
+    }
+    .learning-card {
+      background: var(--card);
+      border: 1px dashed rgba(255,255,255,.12);
+      border-radius: 14px;
+      padding: 1.5rem 1.4rem;
+      display: flex; flex-direction: column; gap: .7rem;
+      transition: border-color .25s, transform .25s;
+    }
+    .learning-card:hover { border-color: rgba(240,78,35,.4); transform: translateY(-4px); }
+    .learning-card-top {
+      display: flex; align-items: center; gap: .6rem;
+    }
+    .learning-icon {
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,.04);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; color: var(--mid);
+    }
+    .learning-card h4 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700; font-size: .9rem;
+      color: var(--cream);
+    }
+    .learning-card p { font-size: .8rem; color: var(--mid); line-height: 1.55; }
+    /* Progress bar */
+    .learning-bar-wrap {
+      background: rgba(255,255,255,.06);
+      border-radius: 99px; height: 4px; overflow: hidden;
+    }
+    .learning-bar {
+      height: 100%; border-radius: 99px;
+      background: linear-gradient(90deg, var(--orange), rgba(240,78,35,.4));
+      transition: width .6s ease;
+    }
+
+    /* ─── PROJECT IMAGE (when a real screenshot is provided) ─── */
+    /* The .project-thumb already handles the placeholder icon.
+       When an <img> is added inside .project-thumb, these rules apply: */
+    .project-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: top;   /* show the top of the screenshot */
+      border-radius: 0;       /* let the card handle rounding */
+      display: block;
+    }
+
+    /* ─── ABOUT section: tighten paragraph spacing ─── */
+    .about-text p { margin-bottom: .9rem; }
+    .about-headline {
+      font-size: 1.05rem; font-weight: 600;
+      color: var(--cream); margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+    /* Edu card: tidy the CV download link */
+    .edu-cv-link {
+      display: inline-flex; align-items: center; gap: .35rem;
+      margin-top: .5rem;
+      font-size: .78rem; font-weight: 600; color: var(--orange);
+      text-decoration: none; letter-spacing: .04em;
+      border: 1px solid rgba(240,78,35,.25);
+      padding: .25rem .75rem; border-radius: 99px;
+      background: rgba(240,78,35,.06);
+      transition: background .2s;
+    }
+    .edu-cv-link:hover { background: rgba(240,78,35,.14); }
+
+    /* ─── CONTACT: CV strip (already defined above, improve layout) ─── */
+    .contact-cv {
+      margin-top: 1.8rem; padding-top: 1.6rem;
+      border-top: 1px solid rgba(255,255,255,.07);
+      display: flex; align-items: center; justify-content: center;
+      gap: 1rem; flex-wrap: wrap;
+    }
+    .contact-cv p { font-size: .85rem; color: var(--mid); }
+
+    /* ─── RESPONSIVE: What I Do + Learning on mobile ─── */
+    @media (max-width: 600px) {
+      .what-grid    { grid-template-columns: 1fr 1fr; }
+      .learning-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 380px) {
+      .what-grid    { grid-template-columns: 1fr; }
+      .learning-grid { grid-template-columns: 1fr; }
+    }
+  
+    /* ═══════════════════════════════════════════
+       ADVANCED ANIMATIONS & BOLD TYPOGRAPHY
+       ═══════════════════════════════════════════ */
+
+    /* ── 1. SCROLL PROGRESS BAR ── */
+    #scroll-progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, #f04e23, #f0a823, #f04e23);
+      background-size: 200% 100%;
+      animation: shimmer 2s linear infinite;
+      z-index: 9999;
+      transition: width .1s linear;
+      border-radius: 0 2px 2px 0;
+    }
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* ── 2. CUSTOM CURSOR ── */
+    * { cursor: none !important; }
+    #cursor-dot {
+      width: 10px; height: 10px;
+      background: #f04e23;
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform .08s ease, background .2s;
+    }
+    #cursor-ring {
+      width: 36px; height: 36px;
+      border: 1.5px solid rgba(240,78,35,.5);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: transform .18s ease, width .2s ease, height .2s ease, border-color .2s;
+    }
+    /* Expand ring on hoverable elements */
+    a:hover ~ #cursor-ring,
+    button:hover ~ #cursor-ring {
+      width: 52px; height: 52px;
+    }
+    /* Hide custom cursor on mobile */
+    @media (max-width: 768px) {
+      * { cursor: auto !important; }
+      #cursor-dot, #cursor-ring { display: none; }
+    }
+
+    /* ── 3. COUNTER NUMBERS ── */
+    .count-num {
+      display: inline-block;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      color: #f04e23;
+    }
+
+    /* ── 4. TEXT SCRAMBLE ── */
+    .scramble-text {
+      display: inline;
+      font-family: 'Syne', sans-serif;
+    }
+
+    /* ── BOLD TYPOGRAPHY SYSTEM ── */
+
+    /* Hero headline — heavier */
+    .hero-text h1 {
+      font-weight: 800 !important;
+      letter-spacing: -2.5px !important;
+      line-height: 1.02 !important;
+    }
+    .hero-text h1 span { color: #f04e23; }
+
+    /* Hero tagline */
+    .hero-tagline {
+      font-weight: 500 !important;
+      font-size: 1.08rem !important;
+      color: #8a9bb0;
+      line-height: 1.78 !important;
+    }
+
+    /* Section titles */
+    .section-title {
+      font-weight: 800 !important;
+      letter-spacing: -2px !important;
+      line-height: 1.05 !important;
+    }
+
+    /* Project card title */
+    .project-body h3 {
+      font-weight: 800 !important;
+      font-size: 1.1rem !important;
+      letter-spacing: -.4px;
+      margin-bottom: .9rem;
+    }
+
+    /* PROBLEM / SOLUTION labels */
+    .project-detail strong {
+      font-weight: 800 !important;
+      color: #f04e23 !important;
+      font-size: .72rem !important;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    /* Project body text */
+    .project-detail {
+      font-weight: 500 !important;
+      color: rgba(255,255,255,.8) !important;
+      line-height: 1.65 !important;
+    }
+
+    /* Feature list */
+    .project-features li {
+      font-weight: 500 !important;
+      color: rgba(255,255,255,.78) !important;
+    }
+
+    /* Learned callout */
+    .project-learned {
+      font-weight: 500 !important;
+    }
+    .project-learned strong {
+      font-weight: 700 !important;
+      color: #f0a823 !important;
+    }
+
+    /* Tech pills */
+    .tech-pill {
+      font-weight: 700 !important;
+      letter-spacing: .05em;
+    }
+
+    /* Skill category titles */
+    .skill-category h4 {
+      font-weight: 800 !important;
+      font-size: 1rem !important;
+    }
+
+    /* Skill pills */
+    .skill-pill {
+      font-weight: 600 !important;
+    }
+
+    /* What I do cards */
+    .what-card h4 {
+      font-weight: 800 !important;
+      font-size: 1rem !important;
+    }
+    .what-card p {
+      font-weight: 500 !important;
+    }
+
+    /* Nav links */
+    .nav-links a {
+      font-weight: 700 !important;
+      letter-spacing: .08em;
+    }
+
+    /* Contact email */
+    .contact-email {
+      font-weight: 800 !important;
+      font-size: 1.1rem !important;
+    }
+
+    /* About headline */
+    .about-headline {
+      font-weight: 600 !important;
+      font-size: 1.05rem !important;
+      line-height: 1.7;
+    }
+
+    /* Info card headings */
+    .info-card h3 {
+      font-weight: 800 !important;
+    }
+
+    /* Section tag */
+    .section-tag {
+      font-weight: 700 !important;
+      letter-spacing: .25em;
+    }
+
+    /* Footer */
+    footer p { font-weight: 500 !important; }
+    .footer-links a { font-weight: 600 !important; }
+
+    /* Buttons bolder */
+    .btn, .btn-cv, .nav-cta {
+      font-weight: 800 !important;
+      letter-spacing: .06em !important;
+    }
+
+    /* Project links */
+    .project-links a {
+      font-weight: 700 !important;
+    }
+
+    /* Tool tags */
+    .tool-tag {
+      font-weight: 600 !important;
+    }
+
+    /* About facts */
+    .about-facts li {
+      font-weight: 500 !important;
+      color: rgba(255,255,255,.8) !important;
+    }
+
+    /* ── HERO EYEBROW BOLDER ── */
+    .hero-eyebrow {
+      font-weight: 700 !important;
+      letter-spacing: .22em;
+    }
+
+    /* ── HERO META bolder ── */
+    .hero-meta-item {
+      font-weight: 600 !important;
+    }
+
+    /* ── CONTACT INTRO ── */
+    .contact-intro {
+      font-weight: 500 !important;
+      font-size: 1rem !important;
+      line-height: 1.8;
+    }
+
+    /* ── EDU items ── */
+    .edu-item .edu-school { font-weight: 700 !important; }
+    .edu-item .edu-degree { font-weight: 500 !important; }
+
+    /* ── Cursor hover states for links ── */
+    a, button, .skill-pill, .what-card, .project-card, .social-btn {
+      cursor: none !important;
+    }
+
+  
+    /* ─── BROWSER-FRAME MOCKUP ─── */
+    .mockup-thumb {
+      height: 220px !important;
+      padding: 0 !important;
+      background: #0d1520 !important;
+      overflow: hidden;
+      position: relative;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: stretch !important;
+      justify-content: flex-start !important;
+    }
+    .mockup-thumb .project-status {
+      position: absolute;
+      top: 42px; right: 10px;
+      z-index: 10;
+    }
+    .browser-frame {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      overflow: hidden;
+    }
+    .browser-bar {
+      display: flex; align-items: center; gap: 5px;
+      padding: 7px 10px;
+      background: #1e2d3d;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      flex-shrink: 0; height: 32px;
+    }
+    .b-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%; flex-shrink: 0;
+      background: rgba(255,255,255,.15);
+    }
+    .b-dot.red    { background: #ff5f57; }
+    .b-dot.yellow { background: #febc2e; }
+    .b-dot.green  { background: #28c840; }
+    .b-url {
+      flex: 1; text-align: center;
+      font-size: .62rem; color: rgba(255,255,255,.4);
+      letter-spacing: .02em; white-space: nowrap;
+      overflow: hidden; text-overflow: ellipsis;
+      background: rgba(0,0,0,.25);
+      padding: 2px 8px; border-radius: 4px; margin: 0 4px;
+    }
+    .browser-screen {
+      flex: 1; overflow: hidden;
+      position: relative; background: #111c2a;
+    }
+    .browser-screen img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top center;
+      display: block;
+      transition: transform .55s cubic-bezier(.22,.61,.36,1);
+    }
+    .project-card:hover .browser-screen img {
+      transform: scale(1.05);
+    }
+
   </style>
 </head>
 <body>
+<!-- Scroll Progress Bar -->
+<div id="scroll-progress"></div>
+<!-- Custom Cursor -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
 
 <!-- ════════════════════════════════ NAV ════════════════════════════════ -->
 <nav>
@@ -574,6 +1035,7 @@
   </button>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
+    <li><a href="#what-i-do">Services</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#contact" class="nav-cta">Hire Me</a></li>
@@ -593,8 +1055,8 @@
     <h1>I Build<br/><span>Fast, Responsive</span><br/>Websites.</h1>
       
     <p class="hero-tagline">
-      Frontend Developer focussed on <strong>Building</strong> clean, responsive,
-      and user-friendly web interfaces. using HTML, CSS, Bootstrap &amp; JavaScript..
+      Frontend Developer focussed on <strong>creating</strong> clean, responsive,
+      and user-friendly web interfaces. using HTML, CSS,JavaScript &amp; React.
     </p>
 
     <p class="hero-value">
@@ -637,15 +1099,15 @@
   <div class="about-grid">
 
     <div class="about-text reveal">
-      <h2 class="section-title">Hi,I am <span>Hope</span> Ishaya</h2>
+      <h2 class="section-title">Hi, I'm <span>Hope</span> Ishaya</h2>
 
-      <p>
-        I'm a <strong>Frontend Developer focused</strong> on building clean,
-        responsive, and user-friendly web interfaces. I enjoy turning ideas into real, functional websites using
-        modern web technologies.
-        I pay attention to design details, performance,
-        and user experience.
-        I'm actively looking for an <strong>internship or Junior frontend role</strong> where I can contribute to a real product, work with an experienced team, and grow quickly.
+      <!-- Refined About Me: direct, confident, recruiter-ready -->
+      <p class="about-headline">
+        I build clean, responsive websites that solve real business problems.
+        in HTML, CSS, JavaScript and React,I turn designs into fast, accessible web interfaces 
+        paying close attention to layout, user experience, and mobile performance.
+       I am actively seeking an <strong>internship or Junior Frontend role</strong> where I can contribute,
+        collaborate, and grow with an experienced team.
       </p>
 
       <ul class="about-facts">
@@ -679,10 +1141,71 @@
           <div class="edu-school">AltSchool Africa</div>
           <div class="edu-degree">Frontend Engineering Diploma</div>
           <span class="edu-date">2025 – 2026</span>
-          <a href="https://docs.google.com/document/d/1di7I-KRicHSlFrLE9sSm2BnU-kr0XK2O/export?format=pdf&attachment=true" target="_blank">
-          <i class="bi bi-file-earmark-arrow-down"></i> Download CV</a>
+          <!-- Styled CV download link -->
+          <br/>
+          <a href="https://docs.google.com/document/d/1di7I-KRicHSlFrLE9sSm2BnU-kr0XK2O/export?format=pdf&attachment=true"
+             target="_blank" rel="noopener" class="edu-cv-link">
+            <i class="bi bi-file-earmark-arrow-down"></i> Download CV
+          </a>
         </div>
       </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ════════════════════ WHAT I DO ════════════════════ -->
+<!--
+  NEW SECTION: Highlights key services in a clean card grid.
+  Placed between About and Skills for logical recruiter flow.
+-->
+<section id="what-i-do">
+  <div class="section-tag">My Services</div>
+  <h2 class="section-title">What I <span>Do</span></h2>
+
+  <div class="what-grid">
+
+    <!-- Card 1 -->
+    <div class="what-card reveal">
+      <div class="what-card-icon"><i class="bi bi-phone"></i></div>
+      <h4>Responsive Websites</h4>
+      <p>I build mobile-first layouts that look great on every screen size — phone, tablet, and desktop.</p>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="what-card reveal">
+      <div class="what-card-icon"><i class="bi bi-bezier2"></i></div>
+      <h4>Design to Code</h4>
+      <p>I convert Figma designs and mockups into clean, pixel-accurate HTML & CSS code.</p>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="what-card reveal">
+      <div class="what-card-icon"><i class="bi bi-stars"></i></div>
+      <h4>Better User Experience</h4>
+      <p>I focus on intuitive layouts, clear navigation, and smooth interactions that keep users engaged.</p>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="what-card reveal">
+      <div class="what-card-icon"><i class="bi bi-layout-wtf"></i></div>
+      <h4>Mobile-Friendly Interfaces</h4>
+      <p>Every project I build works perfectly on mobile — no pinching, no broken layouts.</p>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="what-card reveal">
+      <div class="what-card-icon"><i class="bi bi-cloud-upload"></i></div>
+      <h4>Netlify Deployment</h4>
+      <p>I deploy live websites with Netlify — fast, reliable, and connected to GitHub for easy updates.</p>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="what-card reveal">
+      <div class="what-card-icon"><i class="bi bi-lightning-charge"></i></div>
+      <h4>JavaScript Interactivity</h4>
+      <p>I add dynamic features — carts, counters, form validation, and smooth animations with vanilla JS.</p>
     </div>
 
   </div>
@@ -807,17 +1330,24 @@
 
     <!-- PROJECT 1 — ScentbyGH -->
     <div class="project-card reveal">
-      <div class="project-thumb">
-        <span class="project-num"></span>
-        <span class="project-status status-live">Live</span>
-        <i class="bi bi-cart-check-fill"></i>
+      <div class="project-thumb mockup-thumb">
+        <span class="project-status status-live"></span>
+        <div class="browser-frame">
+          <div class="browser-bar">
+            <span class="b-dot red"></span><span class="b-dot yellow"></span><span class="b-dot green"></span>
+            <span class="b-url">scentbygh.netlify.app</span>
+          </div>
+          <div class="browser-screen">
+            <img src="scentbygh.jpeg" alt="ScentbyGH screenshot" />
+          </div>
+        </div>
       </div>
       <div class="project-body">
         <h3>ScentbyGH — Perfume E-commerce</h3>
 
         <div class="project-detail">
           <strong>Problem</strong><br/>
-           A perfume brand Tthat lacked a modern online presence — most relied on Instagram DMs with no product catalogue or cart functionality.
+           A perfume brand that lacked a modern online presence — most relied on Instagram DMs with no product catalogue or cart functionality.
         </div>
         <div class="project-detail">
           <strong>Solution</strong><br/>
@@ -849,17 +1379,24 @@
 
     <!-- PROJECT 2 — Calculator -->
     <div class="project-card reveal">
-      <div class="project-thumb">
-        <span class="project-num"></span>
-        <span class="project-status status-live">Live</span>
-        <i class="bi bi-calculator"></i>
+      <div class="project-thumb mockup-thumb">
+        <span class="project-status status-live"></span>
+        <div class="browser-frame">
+          <div class="browser-bar">
+            <span class="b-dot red"></span><span class="b-dot yellow"></span><span class="b-dot green"></span>
+            <span class="b-url">calculator-app.netlify.app</span>
+          </div>
+          <div class="browser-screen">
+            <img src="WhatsApp Image 2026-05-13 at 11.19.49 PM.jpeg" alt="Calculator App screenshot" />
+          </div>
+        </div>
       </div>
       <div class="project-body">
         <h3>Calculator App</h3>
 
         <div class="project-detail">
           <strong>Problem</strong><br/>
-          Wanted to solidify JavaScript logic skills by building something that required real arithmetic handling, input validation, and edge-case thinking (e.g. dividing by zero).
+          I wanted to solidify JavaScript logic skills by building something that required real arithmetic handling, input validation, and edge-case thinking (e.g. dividing by zero).
         </div>
         <div class="project-detail">
           <strong>Solution</strong><br/>
@@ -889,17 +1426,24 @@
 
     <!-- PROJECT 3 — Food Website -->
     <div class="project-card reveal">
-      <div class="project-thumb">
-        <span class="project-num"></span>
-        <span class="project-status status-live">Live</span>
-        <i class="bi bi-egg-fried"></i>
+      <div class="project-thumb mockup-thumb">
+        <span class="project-status status-live"></span>
+        <div class="browser-frame">
+          <div class="browser-bar">
+            <span class="b-dot red"></span><span class="b-dot yellow"></span><span class="b-dot green"></span>
+            <span class="b-url">f00d-planet.netlify.app</span>
+          </div>
+          <div class="browser-screen">
+            <img src="food .jpeg" alt="Food Planet screenshot" />
+          </div>
+        </div>
       </div>
       <div class="project-body">
         <h3>Food Planet — Food Website</h3>
 
         <div class="project-detail">
           <strong>Problem</strong><br/>
-          Needed a real project to practise pure HTML &amp; CSS layout skills — specifically working with sections, hero banners, and typography hierarchy without any framework.
+          I needed a real project to practise pure HTML &amp; CSS layout skills — specifically working with sections, hero banners, and typography hierarchy without any framework.
         </div>
         <div class="project-detail">
           <strong>Solution</strong><br/>
@@ -928,8 +1472,6 @@
 
   </div>
 </section>
-
-
 <!-- ════════════════════════════════ CONTACT ════════════════════════════════ -->
 
 <section id="contact">
@@ -965,13 +1507,17 @@
       </a>
     </div>
 
+    <!-- Download CV strip — makes the CV easy to grab from the contact section -->
+    <div class="contact-cv">
+      <p>Prefer to review offline?</p>
+      <a href="https://docs.google.com/document/d/1di7I-KRicHSlFrLE9sSm2BnU-kr0XK2O/export?format=pdf&attachment=true"
+         target="_blank" rel="noopener" class="btn-cv" style="padding: .65rem 1.4rem; font-size: .82rem;">
+        <i class="bi bi-file-earmark-pdf"></i> Download My CV
+      </a>
+    </div><!-- end contact-cv -->
 
-
-  </div>
+  </div><!-- end contact-card -->
 </section>
-
-
-<!-- FOOTER -->
 <footer>
   <p>© 2026 <span>Hope Ishaya</span>. portfolio</p>
   <div class="footer-links">
@@ -1018,6 +1564,175 @@
       document.querySelector('.nav-links').classList.remove('open');
     });
   });
+
+  /* ══════════════════════════════════════════════════
+     ADVANCED ANIMATIONS
+     1. Scroll progress bar
+     2. Custom cursor
+     3. Counter animation
+     4. Text scramble on hero h1
+     ══════════════════════════════════════════════════ */
+
+  /* ── 1. SCROLL PROGRESS BAR ── */
+  (function() {
+    const bar = document.getElementById('scroll-progress');
+    window.addEventListener('scroll', () => {
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const docH = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const pct = (scrollTop / docH) * 100;
+      bar.style.width = pct + '%';
+    }, { passive: true });
+  })();
+
+  /* ── 2. CUSTOM CURSOR ── */
+  (function() {
+    const dot  = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    if (!dot || !ring) return;
+
+    let mouseX = 0, mouseY = 0;
+    let ringX  = 0, ringY  = 0;
+
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      dot.style.left  = mouseX + 'px';
+      dot.style.top   = mouseY + 'px';
+    });
+
+    // Ring follows with lag
+    function animateRing() {
+      ringX += (mouseX - ringX) * 0.12;
+      ringY += (mouseY - ringY) * 0.12;
+      ring.style.left = ringX + 'px';
+      ring.style.top  = ringY + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    // Expand ring on hover
+    const hoverEls = document.querySelectorAll('a, button, .project-card, .skill-pill, .what-card, .social-btn');
+    hoverEls.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        ring.style.width  = '56px';
+        ring.style.height = '56px';
+        ring.style.borderColor = 'rgba(240,78,35,.85)';
+        dot.style.transform = 'translate(-50%,-50%) scale(1.6)';
+      });
+      el.addEventListener('mouseleave', () => {
+        ring.style.width  = '36px';
+        ring.style.height = '36px';
+        ring.style.borderColor = 'rgba(240,78,35,.5)';
+        dot.style.transform = 'translate(-50%,-50%) scale(1)';
+      });
+    });
+
+    // Hide cursor when it leaves the window
+    document.addEventListener('mouseleave', () => {
+      dot.style.opacity = '0';
+      ring.style.opacity = '0';
+    });
+    document.addEventListener('mouseenter', () => {
+      dot.style.opacity = '1';
+      ring.style.opacity = '1';
+    });
+  })();
+
+  /* ── 3. COUNTER ANIMATION ── */
+  (function() {
+    // Find all elements with data-count attribute
+    const counters = document.querySelectorAll('[data-count]');
+    if (!counters.length) return;
+
+    const easeOut = t => 1 - Math.pow(1 - t, 3);
+
+    const animateCounter = (el) => {
+      const target = parseInt(el.getAttribute('data-count'), 10);
+      const duration = 1800;
+      const start = performance.now();
+
+      const tick = (now) => {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const val = Math.floor(easeOut(progress) * target);
+        el.textContent = val.toLocaleString();
+        if (progress < 1) requestAnimationFrame(tick);
+        else el.textContent = target.toLocaleString();
+      };
+      requestAnimationFrame(tick);
+    };
+
+    // Trigger when visible
+    const counterObs = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          counterObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    counters.forEach(el => counterObs.observe(el));
+  })();
+
+  /* ── 4. TEXT SCRAMBLE on hero h1 ── */
+  (function() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*';
+
+    function scramble(el, originalText, duration) {
+      let start = null;
+      const totalFrames = Math.ceil(duration / 16);
+
+      function tick(timestamp) {
+        if (!start) start = timestamp;
+        const progress = (timestamp - start) / duration;
+        const revealedChars = Math.floor(progress * originalText.length);
+
+        let result = '';
+        for (let i = 0; i < originalText.length; i++) {
+          if (originalText[i] === ' ' || originalText[i] === '\n') {
+            result += originalText[i];
+          } else if (i < revealedChars) {
+            result += originalText[i];
+          } else {
+            result += chars[Math.floor(Math.random() * chars.length)];
+          }
+        }
+        el.textContent = result;
+
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        } else {
+          el.textContent = originalText;
+        }
+      }
+      requestAnimationFrame(tick);
+    }
+
+    // Target the plain text nodes inside h1 (not the span)
+    const h1 = document.querySelector('.hero-text h1');
+    if (!h1) return;
+
+    // Scramble after a short delay on load
+    setTimeout(() => {
+      const textNodes = [];
+      h1.childNodes.forEach(node => {
+        if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+          textNodes.push(node);
+        }
+      });
+
+      textNodes.forEach((node, i) => {
+        const originalText = node.textContent;
+        const span = document.createElement('span');
+        span.className = 'scramble-text';
+        span.textContent = originalText;
+        node.replaceWith(span);
+        setTimeout(() => scramble(span, originalText, 900), i * 200);
+      });
+    }, 400);
+  })();
+
 </script>
 </body>
 </html>
